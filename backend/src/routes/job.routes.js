@@ -7,12 +7,14 @@ import {
   createJob,
   updateJob,
   deleteJob,
+  searchJob,
 } from "../controllers/job.controllers.js";
 
 const router = express.Router();
 
 // public
 router.get("/", getAllJobs);
+router.get("/search",searchJob)
 router.get("/:id", getJobById);
 
 // admin-protected
@@ -28,5 +30,6 @@ const jobValidators = [
 router.post("/", jobValidators, createJob);
 router.put("/:id", jobValidators, updateJob);
 router.delete("/:id", deleteJob);
+
 
 export default router;

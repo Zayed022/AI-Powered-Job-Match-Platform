@@ -3,7 +3,11 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 const app= express()
 app.use(cors({
-    origin: "*",
+    origin: [
+        "http://localhost:5174",
+      "http://localhost:5173",
+      "https://ai-powered-job-match-platform-1.onrender.com"
+    ],
     credentials:true
 }))
 
@@ -27,6 +31,9 @@ app.use((err, req, res, next) => {
 
   import recommendRoute from './routes/recommend.routes.js'
   app.use("/api/v1/recommend",recommendRoute);
+
+  import adminRoute from './routes/admin.routes.js'
+  app.use("/api/v1/admin",adminRoute);
 
 
   

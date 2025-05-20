@@ -76,6 +76,25 @@ const deleteJob = async (req, res) => {
   }
 };
 
+const searchJob = async(req,res)=>{
+  try {
+    const { query = "", location = "", skills = "" } = req.query;
+
+    const skillArray = skills ? skills.split(",") : [];
+
+    const jobs = await Job.find({
+      title: { $regex: query, $options: "i" },
+      location: { $regex: location, $options: "i" },
+      ...(skillArray.length > 0 && { skills: { $all: skillArray } }),
+    });
+
+    res.json(jobs);
+  } catch (err) {
+    console.error("searchJobs:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+}
+
 
 export {
     createJob,
@@ -83,4 +102,5 @@ export {
     getJobById,
     updateJob,
     deleteJob,
+    searchJob,
 }

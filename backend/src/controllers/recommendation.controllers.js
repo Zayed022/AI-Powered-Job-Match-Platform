@@ -3,36 +3,48 @@ import { User } from "../models/user.model.js";
 import { Job } from "../models/job.model.js";
 
 const cohere = new CohereClient({
-  apiKey: process.env.COHERE_API_KEY,   // ← set in .env
+  apiKey: process.env.CO_API_KEY,   // ← set in .env
 });
 
 // POST /api/recommendations  (JWT protected)
 export const getJobRecommendations = async (req, res) => {
   try {
-    /* 1) Gather user + jobs */
+    console.log("Using Cohere Key:", process.env.CO_API_KEY);
+
     const user = await User.findById(req.user.id).lean();
     const jobs = await Job.find({}).lean();
 
-    /* 2) Craft prompt */
-    const prompt = buildPrompt(user, jobs);
+    if (!user || jobs.length === 0) {
+      return res.status(404).json({ message: "User or jobs not found" });
+    }
 
-    /* 3) Call Cohere */
-    const { body } = await cohere.generate({
-      model: "command-r",
+    const maxJobs = 30;
+    const prompt = buildPrompt(user, jobs.slice(0, maxJobs));
+    console.log("Prompt to Cohere:", prompt);
+
+    const cohereRes = await cohere.generate({
+      model: "command",
       prompt,
       max_tokens: 250,
       temperature: 0.5,
     });
 
-    /* 4) Parse Cohere text → JS array */
-    const matches = parseToCards(body.generations[0].text);
+    const generations = cohereRes.body?.generations;
+    if (!generations || generations.length === 0) {
+      return res.status(200).json({ matches: [] });
+    }
 
-    res.json({ matches });               // → frontend
+    const matches = parseToCards(generations[0].text);
+    res.json({ matches });
+
   } catch (err) {
-    console.error(err);
+    console.error("Recommendation Error:", err);
     res.status(500).json({ message: "AI service unavailable" });
   }
 };
+
+
+
 
 /* ---------- helpers ---------- */
 
@@ -70,11 +82,12 @@ Return as JSON array of objects.
 
 function parseToCards(text) {
   try {
-    // Cohere already returns valid JSON when asked; quick safety net:
-    const jsonStart = text.indexOf("[");
-    const json = text.slice(jsonStart);
-    return JSON.parse(json).slice(0, 3);   // top 3 only
-  } catch {
-    return []; // fallback empty
+    const match = text.match(/\[.*\]/s); // Match JSON array
+    if (!match) return [];
+    return JSON.parse(match[0]).slice(0, 3);
+  } catch (err) {
+    console.error("Parsing error:", err);
+    return [];
   }
 }
+
