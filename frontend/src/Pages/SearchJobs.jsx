@@ -13,7 +13,7 @@ export default function SearchJobs() {
     setLoading(true);
     try {
       const { data } = await axios.get(
-        `http://localhost:4020/api/v1/jobs/search`,
+        `https://ai-powered-job-match-platform-1.onrender.com/api/v1/jobs/search`,
         {
           params: {
             query,

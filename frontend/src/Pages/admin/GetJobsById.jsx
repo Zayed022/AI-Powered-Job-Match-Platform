@@ -3,9 +3,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-/* -------------------------------------------------------------------------- */
-/*                            info card (read-only)                           */
-/* -------------------------------------------------------------------------- */
+
 function JobCard({ job }) {
   if (!job) return null;
   return (
@@ -31,20 +29,18 @@ function JobCard({ job }) {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                 main page                                  */
-/* -------------------------------------------------------------------------- */
+
 export default function GetJobById() {
   const navigate = useNavigate();
 
-  /* ---------------- state ---------------- */
+  
   const [jobs, setJobs] = useState([]);      // for dropdown convenience
   const [jobId, setJobId] = useState("");
   const [job, setJob] = useState(null);
   const [loadingList, setLoadingList] = useState(true);
   const [searching, setSearching] = useState(false);
 
-  /* ---------- load list once (ids + labels) ---------- */
+  
   useEffect(() => {
     (async () => {
       try {
@@ -61,7 +57,7 @@ export default function GetJobById() {
     })();
   }, [navigate]);
 
-  /* ---------------- search handler ---------------- */
+ 
   const fetchJob = async () => {
     if (!jobId.trim()) return toast.error("Enter a job ID");
     setSearching(true);
@@ -78,7 +74,7 @@ export default function GetJobById() {
     }
   };
 
-  /* ---------------- UI ---------------- */
+
   if (loadingList) return <p className="mt-10 text-center">Loading …</p>;
 
   return (

@@ -3,8 +3,8 @@ import {
   Home,
   UserRound,
   Briefcase,
-  Compass, // Search icon
-} from 'lucide-react'; // already in shadcn/lucide bundle
+  Compass, 
+} from 'lucide-react'; 
 import clsx from 'clsx';
 
 const LinkItem = ({ to, icon: Icon, label, badge }) => (

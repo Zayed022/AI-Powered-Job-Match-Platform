@@ -10,7 +10,7 @@ const RegisterAdmin = () => {
     email: "",
     phone: "",
     password: "",
-    isApproved: false, // or false if you need admin approval first
+    isApproved: false, 
   });
 
   const [loading, setLoading] = useState(false);

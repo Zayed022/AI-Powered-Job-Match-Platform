@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { toast } from 'react-hot-toast';  // optional – install with `npm i react-hot-toast`
+import { toast } from 'react-hot-toast';  
 import axios from 'axios';
 
 export default function SignIn() {
@@ -13,7 +13,7 @@ export default function SignIn() {
   });
   const [loading, setLoading] = useState(false);
 
-  /*  ---------------- handlers ----------------  */
+ 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 

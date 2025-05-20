@@ -9,11 +9,13 @@ import {
   deleteJob,
   searchJob,
 } from "../controllers/job.controllers.js";
+import { verifyJWTAdmin } from "../middlewares/auth.middlewares.js";
 
 const router = express.Router();
 
 // public
 router.get("/", getAllJobs);
+router.route("/delete-job").delete(deleteJob)
 router.get("/search",searchJob)
 router.get("/:id", getJobById);
 
@@ -29,7 +31,7 @@ const jobValidators = [
 
 router.post("/", jobValidators, createJob);
 router.put("/:id", jobValidators, updateJob);
-router.delete("/:id", deleteJob);
+
 
 
 export default router;

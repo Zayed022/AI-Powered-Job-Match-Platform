@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
-import { toast } from 'react-hot-toast';  // `npm i react-hot-toast`
+import { toast } from 'react-hot-toast';  // 
 
 export default function Login() {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ export default function Login() {
       const { data } = await axios.post('https://ai-powered-job-match-platform-1.onrender.com/api/v1/users/login', creds);
       // data = { message, user, token }
 
-      // optional: store token in localStorage so client can add it
+      
       localStorage.setItem('accessToken', data.token);
       toast.success(data.message);      // “User logged in successfully”
 
@@ -45,11 +45,11 @@ export default function Login() {
     }
   };
 
-  /* ------------- UI ------------- */
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
-        <h1 className="text-2xl font-bold mb-6 text-center">Sign in</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Log in</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* email */}

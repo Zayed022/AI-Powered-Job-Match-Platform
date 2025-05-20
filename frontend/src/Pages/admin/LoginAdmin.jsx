@@ -34,13 +34,12 @@ const LoginAdmin = () => {
       const res = await axios.post(
         "https://ai-powered-job-match-platform-1.onrender.com/api/v1/admin/login-admin",
         { email, password },
-        { withCredentials: true } // important for cookie handling
+        { withCredentials: true } 
       );
 
       toast.success(res.data.message || "Login successful");
-      // Optionally store token in localStorage if needed
-      // localStorage.setItem("adminToken", res.data.token);
-      navigate("/home-admin"); // Replace with your actual dashboard route
+      
+      navigate("/home-admin"); 
     } catch (error) {
       const message =
         error.response?.data?.message || "Login failed. Try again.";

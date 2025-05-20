@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
- // adjust if your route is different
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
@@ -40,7 +39,6 @@ export default function Jobs() {
   );
 }
 
-/* ----------------------------- helper card ----------------------------- */
 
 function JobCard({ job }) {
   return (
@@ -64,12 +62,11 @@ function JobCard({ job }) {
         ))}
       </div>
 
-      {/* extra space for future actions like Apply button */}
+      
     </article>
   );
 }
 
-/* ----------------------------- icons ----------------------------- */
 function MapPinIcon(props) {
   return (
     <svg

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-/* ---------- axios base ---------- */
+
 
 
 export default function Navbar() {
@@ -13,24 +13,24 @@ export default function Navbar() {
     Boolean(localStorage.getItem('accessToken'))
   );
 
-  /* keep auth state in sync when tabs/windows change */
+  
   useEffect(() => {
     const sync = () => setIsAuthed(Boolean(localStorage.getItem('accessToken')));
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
   }, []);
 
-  /* --------- actions --------- */
+ 
  const handleLogout = async () => {
   try {
-    // Tell the server to clear its cookies / session
+    
     await axios.post(
       'https://ai-powered-job-match-platform-1.onrender.com/api/v1/users/logout',
       {},
-      { withCredentials: true }          // keep cookies with the call
+      { withCredentials: true }          
     );
   } catch {
-    /* network / 5xx issues aren't fatal for a client-side logout */
+   
   } finally {
     // 1 ) clear any client-side token
     localStorage.removeItem('accessToken');
@@ -48,12 +48,12 @@ export default function Navbar() {
 };
 
 
-  /* --------- render --------- */
+  
   return (
     <nav className="bg-white/30 backdrop-blur-md shadow-md px-6 py-3 sticky top-0 z-50 border-b border-gray-200">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* --- Brand / logo --- */}
+          
           <Link
             to="/"
             className="text-lg sm:text-xl font-extrabold tracking-tight text-gray-900"

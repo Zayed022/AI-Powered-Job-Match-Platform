@@ -5,62 +5,13 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 
 
-function SkillInput({ skills, setSkills }) {
-  const [draft, setDraft] = useState("");
-
-  const add = () => {
-    const s = draft.trim();
-    if (!s) return;
-    if (skills.includes(s)) toast.error("Skill already added");
-    else setSkills((p) => [...p, s]);
-    setDraft("");
-  };
-  const remove = (s) => setSkills((p) => p.filter((x) => x !== s));
-
-  return (
-    <div>
-      <label className="mb-1 block text-sm font-medium">Skills *</label>
-
-      {skills.length > 0 && (
-        <div className="mb-2 flex flex-wrap gap-2">
-          {skills.map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => remove(s)}
-              className="flex items-center gap-1 rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-              {s}
-              <span aria-hidden className="font-bold leading-none">×</span>
-            </button>
-          ))}
-        </div>
-      )}
-
-      <div className="flex gap-2">
-        <input
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && add()}
-          placeholder="Add skill then press Enter"
-          className="flex-1 rounded-md border px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          type="button"
-          onClick={add}
-          disabled={!draft.trim()}
-          className="rounded-md bg-blue-600 px-4 py-2 text-white font-semibold hover:bg-blue-700 disabled:opacity-60">
-          Add
-        </button>
-      </div>
-    </div>
-  );
-}
+import { SkillInput } from "./SkillInput";
 
 
 export default function UpdateJobs() {
   const navigate = useNavigate();
 
-  /* ------------- state ------------- */
+  
   const [jobs, setJobs] = useState([]);          // for list dropdown
   const [selectedId, setSelectedId] = useState("");
   const [job, setJob] = useState({
@@ -72,7 +23,7 @@ export default function UpdateJobs() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
-  /* ------------- fetch list on mount ------------- */
+  
   useEffect(() => {
     (async () => {
       try {
@@ -89,7 +40,7 @@ export default function UpdateJobs() {
     })();
   }, [navigate]);
 
-  /* ------------- fetch single job when chosen ------------- */
+  
   useEffect(() => {
     if (!selectedId) return;
     (async () => {
@@ -107,7 +58,7 @@ export default function UpdateJobs() {
     })();
   }, [selectedId]);
 
-  /* ------------- handlers ------------- */
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setJob((p) => ({ ...p, [name]: value }));
@@ -142,7 +93,7 @@ export default function UpdateJobs() {
     }
   };
 
-  /* ------------- UI ------------- */
+ 
   if (loading) return <p className="mt-10 text-center">Loading …</p>;
 
   return (
@@ -208,9 +159,9 @@ export default function UpdateJobs() {
 
           {/* skills */}
           <SkillInput
-            skills={job.skills}
-            setSkills={(s) => setJob((p) => ({ ...p, skills: s }))}
-          />
+  skills={job.skills || []}
+  setSkills={(s) => setJob((prev) => ({ ...prev, skills: s }))}
+/>
 
           <button
             type="submit"

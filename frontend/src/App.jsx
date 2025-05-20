@@ -8,7 +8,6 @@ import Login from './Pages/Login'
 import Home from './Pages/Home'
 import Profile from './Pages/Profile'
 import Jobs from './Pages/Jobs'
-import Applied from './Pages/Applied'
 import RegisterAdmin from './Pages/admin/RegisterAdmin'
 import LoginAdmin from './Pages/admin/LoginAdmin'
 import HomeAdmin from './Pages/admin/HomeAdmin'
@@ -29,7 +28,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/applied-jobs" element={<Applied />} />
         <Route path="/register-admin" element={<RegisterAdmin />} />
         <Route path="/login-admin" element={<LoginAdmin />} />
         <Route path="/home-admin" element={<HomeAdmin />} />

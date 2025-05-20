@@ -42,8 +42,7 @@ const getJobById = async (req, res) => {
 };
 
 const updateJob = async (req, res) => {
-  if (!req.user?.isAdmin)
-    return res.status(403).json({ message: "Admin only" });
+ 
 
   handleValidation(req, res);
 
@@ -63,17 +62,12 @@ const updateJob = async (req, res) => {
 };
 
 const deleteJob = async (req, res) => {
-  if (!req.user?.isAdmin)
-    return res.status(403).json({ message: "Admin only" });
-
-  try {
-    const deleted = await Job.findByIdAndDelete(req.params.id);
-    if (!deleted) return res.status(404).json({ message: "Job not found" });
-    res.json({ message: "Job deleted" });
-  } catch (err) {
-    console.error("deleteJob:", err);
-    res.status(500).json({ message: "Server error" });
+  const { jobId } = req.body;
+  const job = await Job.findByIdAndDelete(jobId);
+  if (!job) {
+    return res.status(404).json({ message: "Job not found" });
   }
+  res.status(200).json({ message: "Job deleted successfully" });
 };
 
 const searchJob = async(req,res)=>{

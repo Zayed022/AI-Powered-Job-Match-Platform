@@ -1,4 +1,3 @@
-// src/pages/Profile.jsx
 import { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +8,7 @@ import { toast } from 'react-hot-toast';
 export default function Profile() {
   const navigate = useNavigate();
 
-  /* ---------------- state ---------------- */
+  
   const [form, setForm] = useState({
     name: '',
     location: '',
@@ -21,7 +20,7 @@ export default function Profile() {
   const [loading, setLoading]   = useState(true);
   const [saving,  setSaving]    = useState(false);
 
-  /* ---------- fetch on mount ---------- */
+  
   useEffect(() => {
     (async () => {
       try {
@@ -96,7 +95,7 @@ export default function Profile() {
     }
   };
 
-  /* ---------------- UI ---------------- */
+  
   if (loading) return <p className="mt-10 text-center">Loading…</p>;
 
   return (

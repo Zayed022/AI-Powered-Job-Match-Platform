@@ -1,9 +1,19 @@
-// src/pages/HomeAdmin.jsx
 import { useNavigate } from "react-router-dom";
+import {
+  Briefcase,
+  Pencil,
+  Search,
+  Trash2,
+} from "lucide-react"; 
 
-/* -------------------------------------------------------------------------- */
-/*                               helper component                             */
-/* -------------------------------------------------------------------------- */
+
+const iconMap = {
+  "Create Job": <Briefcase className="h-6 w-6 text-white" />,
+  "Update Job": <Pencil className="h-6 w-6 text-white" />,
+  "Get Job by ID": <Search className="h-6 w-6 text-white" />,
+  "Delete Job": <Trash2 className="h-6 w-6 text-white" />,
+};
+
 
 function FeatureCard({ title, desc, path, hue }) {
   const navigate = useNavigate();
@@ -11,47 +21,45 @@ function FeatureCard({ title, desc, path, hue }) {
     <button
       onClick={() => navigate(path)}
       className={`
-        relative flex flex-col justify-between overflow-hidden rounded-2xl
-        border border-white/20 bg-white/60 p-6 shadow backdrop-blur
-        transition-transform duration-200 ease-out
-        hover:-translate-y-1 focus:-translate-y-1
-        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-${hue}-600
-        dark:bg-slate-800/60 dark:border-slate-700
+        group relative flex flex-col justify-between overflow-hidden rounded-2xl
+        border border-slate-200 bg-white p-6 shadow-md transition-all
+        duration-300 ease-out hover:-translate-y-1 hover:shadow-lg
+        focus:outline-none focus:ring-2 focus:ring-${hue}-500 focus:ring-offset-2
+        dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700
       `}
     >
-      {/* decorative gradient blob */}
+      
       <span
         aria-hidden
         className={`
-          pointer-events-none absolute -inset-1 rounded-3xl opacity-0
-          transition-opacity duration-300
-          bg-gradient-to-br from-${hue}-400/60 to-${hue}-600/60
-          blur-2xl
-          group-hover:opacity-100 group-focus-visible:opacity-100
+          pointer-events-none absolute inset-0 z-0 scale-125 opacity-0 blur-2xl
+          transition-all duration-300 ease-in-out group-hover:opacity-30
+          bg-gradient-to-br from-${hue}-400 via-${hue}-500 to-${hue}-600
         `}
       />
 
-      <div className="relative z-10">
-        <h3 className="mb-2 text-lg font-semibold tracking-tight">{title}</h3>
-        <p className="text-sm text-slate-600 dark:text-slate-300">{desc}</p>
+      <div className="relative z-10 flex flex-col gap-4">
+        <div className={`flex items-center justify-center h-12 w-12 rounded-full bg-${hue}-500`}>
+          {iconMap[title]}
+        </div>
+        <div>
+          <h3 className="mb-1 text-lg font-semibold text-slate-900 dark:text-white">
+            {title}
+          </h3>
+          <p className="text-sm text-slate-600 dark:text-slate-300">{desc}</p>
+        </div>
       </div>
 
-      {/* chevron made with borders */}
+     
       <span
         aria-hidden
-        className="
-          relative z-10 mt-4 inline-block h-3 w-3 self-end
-          origin-bottom-right rotate-45 border-b-2 border-r-2
-          border-current
-        "
+        className="relative z-10 mt-6 self-end inline-block h-3 w-3 rotate-45 border-b-2 border-r-2 border-slate-500 dark:border-slate-300"
       />
     </button>
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                    page                                    */
-/* -------------------------------------------------------------------------- */
+
 
 export default function HomeAdmin() {
   const features = [
@@ -83,16 +91,11 @@ export default function HomeAdmin() {
 
   return (
     <section className="mx-auto max-w-6xl px-4 py-12">
-      <h1 className="mb-10 text-3xl font-bold tracking-tight">
+      <h1 className="mb-10 text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
         Admin Dashboard
       </h1>
 
-      <div
-        className="
-          grid gap-8
-          sm:grid-cols-2 lg:grid-cols-4
-        "
-      >
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {features.map(({ hue, ...rest }) => (
           <FeatureCard key={rest.title} hue={hue} {...rest} />
         ))}
