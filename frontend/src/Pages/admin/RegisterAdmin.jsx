@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterAdmin = () => {
   const navigate = useNavigate();
@@ -108,12 +108,11 @@ const RegisterAdmin = () => {
         </form>
         <p className="mt-4 text-center text-sm text-gray-500">
           Already have an account?{" "}
-          <a
-            href="/login-admin"
+          <Link to ="/login-admin"
             className="text-blue-600 hover:underline font-medium"
           >
             Login here
-          </a>
+          </Link>
         </p>
       </div>
     </div>
