@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-hot-toast';  
 import axios from 'axios';
@@ -100,12 +100,11 @@ export default function SignIn() {
 
         <p className="text-sm text-center mt-4">
           Already have an account?{' '}
-          <button
-            onClick={() => navigate('/login')}
+          <Link
             className="text-blue-600 hover:underline"
           >
             Log in
-          </button>
+          </Link>
         </p>
       </div>
     </div>
