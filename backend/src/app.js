@@ -7,7 +7,7 @@ app.use(cors({
         "http://localhost:5174",
       "http://localhost:5173",
       "https://ai-powered-job-match-platform-1.onrender.com",
-      "https://ai-powered-job-match-platform-ten.vercel.app/"
+      "https://ai-powered-job-match-platform-ten.vercel.app"
     ],
     credentials:true
 }))
